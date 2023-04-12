@@ -1,10 +1,10 @@
 import { Filters } from './Filters'
 
-export const Header = ({ changeFilters }: any) => {
+export const Header = () => {
   return (
     <>
       <div>Header</div>
-      <Filters onChange={changeFilters} />
+      <Filters />
     </>
   )
 }

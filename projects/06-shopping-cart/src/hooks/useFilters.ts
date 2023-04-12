@@ -1,11 +1,9 @@
-import { useState } from 'react'
-import { Product, ProductFilters } from '../types'
+import { useContext } from 'react'
+import { Product } from '../types'
+import { FiltersContext } from '../context/filters'
 
 export const useFilters = () => {
-  const [filters, setFilters] = useState<ProductFilters>({
-    category: 'all',
-    minPrice: 0,
-  })
+  const { filters, setFilters } = useContext(FiltersContext)
 
   const filterProducts = (products: Product[]): Product[] => {
     return products.filter((product) => {

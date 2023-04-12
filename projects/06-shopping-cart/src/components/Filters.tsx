@@ -1,31 +1,28 @@
-import { useState, useId } from 'react'
+import { useId } from 'react'
 import './Filters.css'
-import { ProductFilters } from '../types'
+import { useFilters } from '../hooks/useFilters'
 
-interface Props {
-  onChange: (filters: ProductFilters) => void
-}
+export const Filters = () => {
+  const { filters, setFilters } = useFilters()
 
-export const Filters: React.FC<Props> = ({ onChange }) => {
-  const [minPrice, setMinPrice] = useState(0)
-  const [category, setCategory] = useState('all')
+  /* const [minPrice, setMinPrice] = useState(0)
+  const [category, setCategory] = useState('all') */
+
   const filterRangeId = useId()
   const filterCategoryId = useId()
 
   const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMinPrice(Number(event.target.value))
-    onChange({
+    setFilters({
       minPrice: Number(event.target.value),
-      category
+      category: filters.category
     })
   }
 
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setCategory(event.target.value)
-    onChange({
-      minPrice: minPrice,
+    setFilters({
+      minPrice: filters.minPrice,
       category: event.target.value
     })
   }
@@ -35,20 +32,20 @@ export const Filters: React.FC<Props> = ({ onChange }) => {
       <div>
         <label htmlFor={filterRangeId}>Min Price</label>
         <input
-          value={minPrice}
+          value={filters.minPrice}
           onChange={handleRangeChange}
           type="range"
           id={filterRangeId}
           min="0"
           max="1000"
         />
-        <span>${minPrice}</span>
+        <span>${filters.minPrice}</span>
       </div>
 
       <div>
         <label htmlFor={filterCategoryId}>Category</label>
         <select
-          value={category}
+          value={filters.category}
           onChange={handleCategoryChange}
           name="category"
           id={filterCategoryId}
