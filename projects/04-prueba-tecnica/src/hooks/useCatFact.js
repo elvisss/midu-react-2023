@@ -8,7 +8,6 @@ export const useCatFact = () => {
     getRandomFact().then(newCat => setFact(newCat))
   }
 
-  // random fact
   useEffect(refreshFact, [])
 
   return {
